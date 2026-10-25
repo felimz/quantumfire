@@ -27,7 +27,8 @@
 ## Getting Started
 
 ```bash
-npm install
+# Use Node 22.23.3 and npm 12.2.0 (see .node-version and .npm-version).
+npm ci
 npm run dev         # Start dev server on http://localhost:4000
 ```
 

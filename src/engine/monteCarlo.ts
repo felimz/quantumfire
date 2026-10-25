@@ -8,6 +8,7 @@
 import { SimulationParams, MonteCarloResult, YearResult } from "../types";
 import { runPath } from "./simulation";
 import { getSurvivalProbability } from "./mortality";
+import { selectMedian } from "./statistics";
 
 /**
  * Linearly interpolate a percentile from a sorted array.
@@ -46,8 +47,7 @@ const getPercentiles = (arr: Float64Array, sortBuffer: Float64Array) => {
 
 const getMedian = (arr: Float64Array, sortBuffer: Float64Array) => {
   sortBuffer.set(arr);
-  sortBuffer.sort();
-  return sortBuffer[Math.floor(sortBuffer.length * 0.5)];
+  return selectMedian(sortBuffer);
 };
 
 const getAverage = (arr: Float64Array) => {

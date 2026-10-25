@@ -191,7 +191,6 @@ export const runPath = (
     bondMeanReturn,
     bondVolatility,
     glidepathEnabled,
-    glidepathTargetEquity,
 
     advancedTaxEnabled,
     stepUpInBasisEnabled,
@@ -633,9 +632,8 @@ export const runPath = (
 
         // --- SOCIAL SECURITY & PENSION ---
         let totalIncomeStreams = 0;
-        let nominalAnnualSS = 0;
         if (age >= socialSecurityAge && socialSecurityMonthly > 0) {
-          nominalAnnualSS =
+          const nominalAnnualSS =
             socialSecurityMonthly * 12 * cumulativeInflation;
 
           // IRS progressive phase-in: 0%, 50%, or up to 85% of SS is taxable
