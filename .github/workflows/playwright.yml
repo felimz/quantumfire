@@ -20,11 +20,21 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Verify diagnostic size controls
+      run: node --test scripts/verify-ci-report.mjs
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --reporter=line,html,json
+      env:
+        PLAYWRIGHT_JSON_OUTPUT_FILE: test-results/ci-results.json
+        PLAYWRIGHT_HTML_OPEN: never
+    - name: Package bounded failure diagnostics
+      if: ${{ failure() && !cancelled() }}
+      run: node scripts/package-ci-report.mjs
     - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+      if: ${{ failure() && !cancelled() }}
       with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+        name: playwright-failure-report
+        path: test-results/ci-upload/ci-report.tar.gz
+        if-no-files-found: error
+        compression-level: 0
+        retention-days: 1
