@@ -53,6 +53,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Retain recoverable failure diagnostics in job logs
-        if: ${{ failure() && !cancelled() }}
+      - name: Retain recoverable diagnostics in job logs
+        if: ${{ !cancelled() }}
         run: node scripts/ci-report-log.mjs emit

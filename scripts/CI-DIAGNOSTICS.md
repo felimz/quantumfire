@@ -7,7 +7,8 @@ its existing 64 MiB envelope and overflow behavior: oversized optional rich
 attachments are listed by hash, essential records remain, and budget overflow
 keeps the job red. Complete assertion stacks remain in the original test log.
 
-The failure-diagnostic step encodes its archive into numbered base64 log lines.
+The diagnostic step encodes its archive into numbered base64 log lines after
+completed runs, including successful runs so hosted recovery can be qualified.
 Metadata includes the source SHA, byte count, chunk count and SHA-256. This retains
 the HTML, JSON and binary trace contents when the archive fits the existing bound.
 No storage allowance is assumed. GitHub documents public standard runners as free

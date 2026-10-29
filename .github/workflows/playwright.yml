@@ -26,6 +26,6 @@ jobs:
       env:
         PLAYWRIGHT_JSON_OUTPUT_FILE: test-results/ci-results.json
         PLAYWRIGHT_HTML_OPEN: never
-    - name: Retain recoverable failure diagnostics in job logs
-      if: ${{ failure() && !cancelled() }}
+    - name: Retain recoverable diagnostics in job logs
+      if: ${{ !cancelled() }}
       run: node scripts/ci-report-log.mjs emit
