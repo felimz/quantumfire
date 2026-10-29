@@ -14,8 +14,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
-    "test": "vitest run --exclude tests/**",
-    "test:watch": "vitest --exclude tests/**",
+    "test": "vitest run --exclude \"tests/**\"",
+    "test:watch": "vitest --exclude \"tests/**\"",
     "bench": "vitest bench",
     "validate": "npm run typecheck && npm run lint && npm run test",
     "prepare": "husky"
