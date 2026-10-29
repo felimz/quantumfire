@@ -19,7 +19,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: "npm"
 
       - name: Pin npm
         run: npm install --global "npm@$(cat .npm-version)"
@@ -42,8 +41,18 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Verify diagnostic controls
+        run: node --test scripts/verify-ci-report.mjs scripts/verify-ci-report-log.mjs
+
       - name: E2E Playwright Tests
-        run: npx playwright test
+        run: npx playwright test --reporter=line,html,json
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_FILE: test-results/ci-results.json
+          PLAYWRIGHT_HTML_OPEN: never
 
       - name: Build
         run: npm run build
+
+      - name: Retain recoverable failure diagnostics in job logs
+        if: ${{ failure() && !cancelled() }}
+        run: node scripts/ci-report-log.mjs emit

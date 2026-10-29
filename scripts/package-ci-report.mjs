@@ -122,7 +122,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.ar
     const result = await packageReport();
     if (process.env.GITHUB_STEP_SUMMARY) {
       fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
-        `\nFailure diagnostics: ${result.mode}; ${result.bytes} bytes; retained for one day. Full assertion failures remain in job logs.\n`);
+        `\nLocal failure archive: ${result.mode}; ${result.bytes} bytes. This command does not upload an artifact.\n`);
     }
     if (result.overBudget) process.exitCode = 1;
   } catch (error) {
